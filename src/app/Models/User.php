@@ -2,62 +2,34 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
-    protected $table = 'user';
+    use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    // Specify the table associated with the model (optional if the table name is 'users')
+    protected $table = 'users';
+
+    // Specify which attributes are mass assignable
     protected $fillable = [
-        'username',
-        'email',
-        'password',
-        'birthday',
-        'address',
-        'phone_number',
-        'sex',
-        'image',
+        'name', 'email', 'password', 'role',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+    // Specify which attributes should be hidden for arrays (e.g., password)
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
+    // Specify which attributes should be cast to native types
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
 
-    public function getJWTIdentifier()
+    // Optionally, if you're using Laravel's default authentication, you can use these methods:
+    public function setPasswordAttribute($value)
     {
-        return $this->getKey();
+        $this->attributes['password'] = bcrypt($value);
     }
-
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
-
 }

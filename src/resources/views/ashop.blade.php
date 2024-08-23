@@ -3,20 +3,6 @@
 @section('title', 'Home Page')
 
 @section('content')
-<?php // var_dump($address); ?>
-@foreach ($address as $key => $value)
-    <p><strong>{{ $key }}:</strong> {{ $value }}</p>
-@endforeach
-foreach ($addresses as $address) {
-    echo "<p><strong>ID:</strong> " . $address['id'] . "</p>";
-    echo "<p><strong>Street:</strong> " . $address['street'] . "</p>";
-    echo "<p><strong>City:</strong> " . $address['city'] . "</p>";
-    echo "<p><strong>State:</strong> " . $address['state'] . "</p>";
-    echo "<p><strong>ZIP Code:</strong> " . $address['zip_code'] . "</p>";
-    echo "<p><strong>Country:</strong> " . $address['country'] . "</p>";
-    echo "<hr>"; // To separate each address
-}
-
 <section class="categories">
     <div class="container-fluid">
         <div class="row">
@@ -317,7 +303,6 @@ foreach ($addresses as $address) {
                             <div class="section-title">
                                 <h4>Hot Trend</h4>
                             </div>
-                 
                             <div class="trend__item">
                                 <div class="trend__item__pic">
                                     <img src="img/trend/ht-1.jpg" alt>

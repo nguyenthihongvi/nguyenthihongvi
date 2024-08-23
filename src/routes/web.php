@@ -9,9 +9,12 @@ use App\Http\Controllers\PostController;
 use App\Jobs\SendMail;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Product;
 use App\Mail\PostPublished;
 use App\DataTables\UsersDataTable;
+use App\Http\Controllers\Api\AddressController;
 use App\Models\Address;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,7 +26,31 @@ use App\Models\Address;
 |
 */
 
-Route::get('/', function () {
-    $address = Address::all();
-  return view('ashop',['address' => $address ]);
+/*Route::get('/', function () {
+    $products = Product::find(1);
+    return view('ashop', ['products' => $products]);
 });
+
+Route::get('/products', function () {
+    $products = Product::all();
+    return view('ashop_list', ['products' => $products]);
+});
+
+Route::get('/product/{id}', function ($id) {
+    $product = Product::find($id);
+    if (!$product) {
+        abort(404, 'Product not found');
+    }
+    return view('ashop_detail', [
+        'product' => $product,
+        'flag' => 1
+    ]);
+});*/
+Route::get('/address', function () {
+    $address = Address::all();
+    return view('ashop', ['address' => $address]);
+});
+
+Route::get('/address', [AddressController::class, 'index']);
+Route::get('login', [App\Http\Controllers\LoginController::class, 'handleLogin'])->name('login');
+Route::get('register', [App\Http\Controllers\LoginController::class, 'register'])->name('register');;

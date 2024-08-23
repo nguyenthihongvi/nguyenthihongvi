@@ -1,23 +1,46 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Customer extends Model
+class Customer extends Authenticatable
 {
-    // Specify the table name if it doesn't follow Laravel's convention
-    protected $table = 'customer';
+    use HasFactory, Notifiable;
 
-    // Define which attributes are mass assignable
+    // Specify the table associated with the model
+    protected $table = 'customers';
+
+    // Specify the primary key of the table
+    protected $primaryKey = 'id';
+
+    // The attributes that are mass assignable
     protected $fillable = [
         'first_name',
         'last_name',
         'email',
-        'phone_number',
+        'password',
+        'phone',
         'address',
+        'city',
+        'state',
+        'country',
+        'postal_code',
+        'loyalty_points',
+        'email_verified_at',
+        'remember_token',
     ];
 
-    // If you are using timestamps, you may need this line
-    public $timestamps = true;
+    // The attributes that should be hidden for arrays
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    // The attributes that should be cast to native types
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 }
+
